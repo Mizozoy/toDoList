@@ -9,9 +9,16 @@
       <div>
         <h1>My toDo list</h1>
       </div>
-      <div class="todo-list">
-        <input type="text" id="todo-title" />
-        <button onclick="addToDo()">Add</button>
+      <div>
+        <div class="add-todo">
+          <input
+            type="text"
+            id="todo-title"
+            maxlength="20"
+            onpaste="return false"
+          />
+          <button onclick="addToDo()" id="button">Add</button>
+        </div>
         <div id="todo-list"></div>
       </div>
     </div>
