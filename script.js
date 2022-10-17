@@ -1,4 +1,4 @@
-//Model
+—//Model
 const renderPlace = document.getElementById("todo-list");
 let todolist = [];
 
@@ -14,6 +14,11 @@ const removeToDo = (idToDelete) => {
       return true;
     }
   });
+};
+
+document.getElementById("todo-title").onkeypress = function (e) {
+  var chr = String.fromCharCode(e.which);
+  if ('></—'.indexOf(chr) >= 0) return false;
 };
 
 //Control
@@ -37,14 +42,15 @@ const deleteToDo = (event) => {
 const render = () => {
   renderPlace.innerHTML = "";
   todolist.forEach((todo) => {
-    const element = document.createElement("li");
+    const element = document.createElement("div");
+    element.className = "todo";
 
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.onchange = deleteToDo;
     checkBox.id = todo.id;
 
-    const text = document.createElement("para");
+    const text = document.createElement("label");
     text.innerText = todo.title;
 
     element.appendChild(checkBox);
