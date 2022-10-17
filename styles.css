@@ -29,13 +29,30 @@ h1 {
   border: 2px solid grey;
   border-color: rgb(219, 217, 217);
   box-shadow: 5px 5px 5px grey;
-  width: 250px;
-  height: 475px;
-  padding: 25px;
+  width: 265px;
+  height: 490px;
+  padding: 15px;
 }
 
-.todo-list {
+.add-todo {
+  display: flex;
+  align-items: center;
   justify-content: center;
+}
+
+#todo-title {
+  width: max-content;
+  height: 20px;
+}
+
+#todo-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: none;
+  scroll-behavior: auto;
+  max-height: 395px;
 }
 
 button {
@@ -47,11 +64,13 @@ button {
   margin: 5px;
 }
 
-li {
-  margin-top: 10px;
-  font-style: ;
+.todo {
+  margin-top: 4px;
+  display: flex;
+  height: 20px;
 }
 
 input[type="checkbox"] {
   margin-right: 10px;
+  border-radius: 5px;
 }
