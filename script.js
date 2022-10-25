@@ -1,9 +1,9 @@
-—//Model
+//Model
 const renderPlace = document.getElementById("todo-list");
 let todolist = [];
 
 const createToDo = (title) => {
-  todolist.push({ title: title, id: "" + Math.random() });
+  todolist.push({ title: title, id: "" + Math.random(), done: false });
 };
 
 const removeToDo = (idToDelete) => {
@@ -16,25 +16,41 @@ const removeToDo = (idToDelete) => {
   });
 };
 
+const doneToDo = (idToDone) => {
+  for (i = 0; i < todolist.length; i++) {
+    if (todolist[i].id === idToDone && todolist[i].done === false) {
+      todolist[i].done = true;
+    } else if (todolist[i].id === idToDone && todolist[i].done === true) {
+      todolist[i].done = false;
+    }
+  }
+};
+
 document.getElementById("todo-title").onkeypress = function (e) {
   var chr = String.fromCharCode(e.which);
-  if ('></—'.indexOf(chr) >= 0) return false;
+  if ("></— ".indexOf(chr) >= 0) return false;
 };
 
 //Control
 const addToDo = () => {
   const todoTitle = document.getElementById("todo-title").value;
-
-  createToDo(todoTitle);
-
+  if (todoTitle != "") {
+    createToDo(todoTitle);
+  }
   render();
 };
 
 const deleteToDo = (event) => {
-  const deleteCheckBox = event.target;
-  const idToDelete = deleteCheckBox.id;
+  const deleteButton = event.target;
+  const idToDelete = deleteButton.id;
   removeToDo(idToDelete);
+  render();
+};
 
+const stateToDo = (event) => {
+  const stateCheckBox = event.target;
+  const idToChange = stateCheckBox.id;
+  doneToDo(idToChange);
   render();
 };
 
@@ -47,14 +63,26 @@ const render = () => {
 
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
-    checkBox.onchange = deleteToDo;
     checkBox.id = todo.id;
+    checkBox.onchange = stateToDo;
+    if (todo.done) {
+      checkBox.checked = true;
+    } else {
+      checkBox.checked = false;
+    }
 
-    const text = document.createElement("label");
+    const delButton = document.createElement("button");
+    delButton.onclick = deleteToDo;
+    delButton.id = todo.id;
+    delButton.className = "delButton";
+
+    const text = document.createElement("para");
     text.innerText = todo.title;
+    text.classList = "todoTitle";
 
     element.appendChild(checkBox);
     element.appendChild(text);
+    element.appendChild(delButton);
 
     renderPlace.appendChild(element);
   });
